@@ -47,15 +47,15 @@ public class ForecastGenerator {
 
     /**
      * This method will generate all nodes and edges for the forecast.
-     * First all nodes create created and after the relation (edges) will be created.
+     * First all nodes are created and after the relation's (edges) will be created.
      *
-     * @param companies
-     * @param professionals
-     * @param customers
-     * @param products
-     * @param useThreadPoolInEdgeCreation
+     * @param companiesAmount - Amount of companies to generate
+     * @param professionalsAmount - Amount of professionals to generate
+     * @param customersAmount - Amount of customers to generate
+     * @param productsAmount - Amount of products to generate
+     * @param useThreadPoolInEdgeCreation - parameter to define if is to use edge insertion with threads or not.
      */
-    public void generateForecast(Integer companies, Integer professionals, Integer customers, Integer products, boolean useThreadPoolInEdgeCreation) {
+    public void generateForecast(Integer companiesAmount, Integer professionalsAmount, Integer customersAmount, Integer productsAmount, boolean useThreadPoolInEdgeCreation) {
         this.uuidForecast = UUID.randomUUID();
         this.useThreadPoolInEdgeCreation = useThreadPoolInEdgeCreation;     
         
@@ -66,10 +66,10 @@ public class ForecastGenerator {
         try {
             this.sessionOGM.beginTransaction();
             this.save(getForecast());
-            this.saveNodesWithoutThread(Node.TYPE_COMPANY, companies, mapCompany);
-            this.saveNodesWithoutThread(Node.TYPE_PROFESSIONAL, professionals, mapProfessional);
-            this.saveNodesWithoutThread(Node.TYPE_CUSTOMER, customers, mapCustomer);
-            this.saveNodesWithoutThread(Node.TYPE_PRODUCT, products, mapProduct);
+            this.saveNodesWithoutThread(Node.TYPE_COMPANY, companiesAmount, mapCompany);
+            this.saveNodesWithoutThread(Node.TYPE_PROFESSIONAL, professionalsAmount, mapProfessional);
+            this.saveNodesWithoutThread(Node.TYPE_CUSTOMER, customersAmount, mapCustomer);
+            this.saveNodesWithoutThread(Node.TYPE_PRODUCT, productsAmount, mapProduct);
             this.sessionOGM.getTransaction().commit();
             if (this.useThreadPoolInEdgeCreation) {
                 this.createEdgesWithThreadPool();
