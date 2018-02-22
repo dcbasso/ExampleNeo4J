@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="error" packages="com.ws.neo4j.example.graph">
+    <Properties>
+        <Property name="SERVICE_NAME">${sys:service.name}</Property>
+    </Properties>
+
+    <Appenders>
+        
+        <Console name="default" target="SYSTEM_OUT">
+            <PatternLayout pattern="-[%-5level] %d - %highlight{%logger{36}: %msg%n}"/>
+        </Console>
+        
+    </Appenders>
+
+    <Loggers>
+
+        <Logger name="com.ws.neo4j.example" level="trace">
+            <AppenderRef ref="default"/>
+        </Logger>
+        
+        <Logger name="org.neo4j.ogm.drivers.bolt.request" level="OFF">
+            <AppenderRef ref="default"/>
+        </Logger>
+        
+        <Root level="OFF" >
+            <AppenderRef ref="default"    />
+            <!--<AppenderRef ref="request-appender"   />-->
+            <!--<AppenderRef ref="exception-appender" />-->
+        </Root>
+
+    </Loggers>
+
+</Configuration>
